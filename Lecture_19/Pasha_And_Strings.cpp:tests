@@ -1,0 +1,23 @@
+[
+	{
+		"correct_answers":
+		[
+			"fbdcea"
+		],
+		"test": "abcdef\n3\n1 2 3\n"
+	},
+	{
+		"correct_answers":
+		[
+			"vwxyz"
+		],
+		"test": "vwxyz\n2\n2 2\n"
+	},
+	{
+		"correct_answers":
+		[
+			"aedcbf"
+		],
+		"test": "abcdef\n1\n2\n"
+	}
+]

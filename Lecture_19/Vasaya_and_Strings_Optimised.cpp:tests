@@ -1,0 +1,23 @@
+[
+	{
+		"correct_answers":
+		[
+			"4"
+		],
+		"test": "4 2\nabba\n"
+	},
+	{
+		"correct_answers":
+		[
+			"5"
+		],
+		"test": "8 1\naabaabaa\n"
+	},
+	{
+		"correct_answers":
+		[
+			"6"
+		],
+		"test": "9 1\naabaabaaa\n"
+	}
+]
