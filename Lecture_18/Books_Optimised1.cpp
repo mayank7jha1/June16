@@ -45,12 +45,14 @@ int main() {
 
 
 	for (int i = 0; i < n; i = i + 1) {
+
 		//I want to calculate ith index se kitne index tax kitab padh sakta hu.
 		if (i > 0) {
-			UTT = UTT + pre[i - 1];
+			UTT = UTT + a[i - 1];
 		}
 
 		int index = upper_bound(0, n - 1, UTT);
+
 		int No_of_Books_from_ith_Index = index - i;
 		//cout << No_of_Books_from_ith_Index << endl;
 
