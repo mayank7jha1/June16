@@ -2,8 +2,8 @@
 #include<climits>
 using  namespace std;
 int n;
-int a[10001];
-int pre[10001];
+int a[100001];
+int pre[100001];
 
 int upper_bound(int s, int e, int target) {
 
