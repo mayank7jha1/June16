@@ -1,0 +1,30 @@
+[
+	{
+		"correct_answers":
+		[
+			"1 2"
+		],
+		"test": "bb\n"
+	},
+	{
+		"correct_answers":
+		[
+			"2 4"
+		],
+		"test": "baab\n"
+	},
+	{
+		"correct_answers":
+		[
+			"2 5"
+		],
+		"test": "babb\n"
+	},
+	{
+		"correct_answers":
+		[
+			"2 7"
+		],
+		"test": "babaa\n"
+	}
+]

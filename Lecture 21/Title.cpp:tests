@@ -1,0 +1,23 @@
+[
+	{
+		"correct_answers":
+		[
+			"IMPOSSIBLE"
+		],
+		"test": "3\na?c\n"
+	},
+	{
+		"correct_answers":
+		[
+			"abba"
+		],
+		"test": "2\na??a\n"
+	},
+	{
+		"correct_answers":
+		[
+			"abba"
+		],
+		"test": "2\n?b?a\n"
+	}
+]
