@@ -1,5 +1,6 @@
 #include<iostream>
 #include"Node.h"
+#include<algorithm>
 using  namespace std;
 
 //Input Method 1:
@@ -190,8 +191,217 @@ void PrintALLLevel(node<int>*root) {
 
 
 //Diameter of a Tree:
+int DT = 0;
+
+//This Function Actually Return Height but
+///we are calculating the diameter simultaneously.
+
+//Computation: Linear (~no of nodes).
+int Diameter1(node<int>*root) {
+
+	//Base Condtion:
+	if (root == NULL) {
+		return 0;
+	}
+
+	int LSTH = Diameter1(root->left);
+	int RSTH = Diameter1(root->right);
+
+	DT = max(DT, LSTH + RSTH);
+
+	return 1 + max(LSTH, RSTH);
+}
+
+//Basic:
+//This Function Actually Returns the Diameter.
+
+//Computation: (n*n): where n is no of nodes.
+int Diameter2(node<int>*root) {
+
+	if (root == NULL) {
+		return 0;
+	}
+
+	//Diameter occurs in Left Subtree.
+	int Op1 = Diameter2(root->left);
+
+	//Diameter occurs in Right Subtree.
+	int OP2 = Diameter2(root->right);
+
+	//Diameter Passes through root node.
+	int Op3 = Height(root->left) + Height(root->right);
+
+	return max({Op1, OP2, Op3});
+	//return max(Op1, max(OP2, Op3));
+}
+
+class Pair1 {
+public:
+	int height;
+	int diameter;
+
+	Pair1() {
+		height = 0;
+		diameter = 0;
+	}
+};
+
+//Computation: (~n).
+Pair1 Diameter3(node<int>*root) {
+
+	Pair1 p;
+	if (root == NULL) {
+		p.height = 0;
+		p.diameter = 0;
+		return p;
+	}
 
 
+	Pair1 LSTHD = Diameter3(root->left);
+	Pair1 RSTHD = Diameter3(root->right);
+
+
+	//First Calculate Diameter:
+	int Op1 = LSTHD.diameter;
+	int Op2 = RSTHD.diameter;
+	int Op3 = LSTHD.height + RSTHD.height;
+
+	p.diameter = max({Op1, Op2, Op3});
+
+	//Then Calculate Height.
+	p.height = 1 + max(LSTHD.height, RSTHD.height);
+
+	return p;
+}
+
+//Height Balanced Tree:
+
+/*
+	For Every Subtree Left subtree height-Right subtree height should
+	be -1,0,1.
+
+	In the given pair below p.first represents the
+	height and p.second represent isbalanced variable which
+	tell me uptill now my tree is balanced or not.
+
+*/
+
+pair<int, bool>HeightBalanced(node<int>*root) {
+
+	pair<int, bool>p;
+	if (root == NULL) {
+		p.first = 0;
+		p.second = 1;
+		return p;
+	}
+
+	pair<int, bool>LSTHI = HeightBalanced(root->left);
+	pair<int, bool>RSTHI = HeightBalanced(root->right);
+
+	//Calculate Height.
+	p.first = 1 + max(LSTHI.first, RSTHI.first);
+
+	//Check for HeightBalanced.
+
+	if (LSTHI.second == 1 and RSTHI.second == 1 and
+	        abs(LSTHI.first - RSTHI.first) <= 1) {
+		p.second = 1;
+	} else {
+		p.second = 0;
+	}
+
+	return p;
+}
+
+
+//Given An array of Input Create a HeightBalancedTree.
+node<int>* HBT(int *a, int s, int e) {
+
+	if (s > e) {
+		return NULL;
+	}
+
+	int mid = (s + e) / 2;
+	node<int>*root = new node<int>(a[mid]);
+
+	root->left = HBT(a, s, mid - 1);
+	root->right = HBT(a, mid + 1, e);
+
+	return root;
+}
+
+
+
+node<int>* InsertInBST(node<int>*root, int d) {
+
+	if (root == NULL) {
+		root = new node<int>(d);
+		return root;
+	}
+
+	if (root->data < d) {
+		root->right = InsertInBST(root->right, d);
+	} else {
+		root->left = InsertInBST(root->left, d);
+	}
+
+	return root;
+}
+
+
+node<int>*BuildBST() {
+	int x;
+	cin >> x;
+
+	node<int>*root = NULL;
+
+	while (x != -1) {
+		root = InsertInBST(root, x);
+		cin >> x;
+	}
+
+	return root;
+}
+
+
+bool SearchInBST(node<int>*root, int key) {
+
+	if (root == NULL) {
+		return false;
+	}
+
+	if (root->data == key) {
+		return true;
+	} else if (root->data < key) {
+		return SearchInBST(root->right, key);
+	} else {
+		return SearchInBST(root->left, key);
+	}
+}
+
+
+void PrintRange(node<int>*root, int key1, int key2) {
+
+	if (root == NULL) {
+		return;
+	}
+
+	//Inorder Traversal.
+
+	if (root->data >= key1 and root->data <= key2) {
+		cout << root->data << " ";
+	}
+
+	if (root->data < key1) {
+		PrintRange(root->right, key1, key2);
+	} else if (root->data >= key1 and root->data <= key2) {
+		PrintRange(root->right, key1, key2);
+		PrintRange(root->left, key1, key2);
+	} else {
+		PrintRange(root->left, key1, key2);
+	}
+
+}
 
 
 
