@@ -1,6 +1,7 @@
 #include<iostream>
 #include"Node.h"
 #include<algorithm>
+#include<climits>
 using  namespace std;
 
 //Input Method 1:
@@ -404,7 +405,57 @@ void PrintRange(node<int>*root, int key1, int key2) {
 }
 
 
+bool IsBST(node<int>*root, int mini = INT_MIN, int maxi = INT_MAX) {
 
+	if (root == NULL) {
+		return true;
+	}
+
+
+	if (root->data >= mini and root->data <= maxi and IsBST(root->left, mini, root->data) == 1 and IsBST(root->right, root->data, maxi) == 1) {
+		return true;
+	}
+
+
+	return false;
+}
+
+
+int Pre_Index = 0;//Global Variable
+node<int>*BuildTreeFromPreAndIn(int* pre, int *in, int s, int e) {
+
+	//static int Pre_Index = 0;//Static Variable
+	//const int Pre_Index=0;//Constant Variable
+	if (s > e) {
+		return NULL;
+	}
+
+	int element = pre[Pre_Index];
+
+
+	//Task:
+	node<int>*root = new node<int>(element);
+	Pre_Index = Pre_Index + 1; //2
+
+	//Search this element in the Inoder Array from range [s,e];
+	int Inorder_Index = -1;
+
+	for (int i = s; i <= e; i++) {
+		if (in[i] == element) {
+			Inorder_Index = i;
+			break;
+		}
+	}
+
+
+	//Ask Recursion to do the rest.
+
+	root->left = BuildTreeFromPreAndIn(pre, in, s, Inorder_Index - 1);
+	root->right = BuildTreeFromPreAndIn(pre, in, Inorder_Index + 1, e);
+
+	return root;
+
+}
 
 
 
